@@ -43,11 +43,13 @@ The EquiScheduler is a comprehensive and user-friendly platform designed to stre
     * As an admin, I want to be able to modify an instructor's details, such as their available hours per day and the days of the week they work.
     * As an admin, I want to define the standard slot length for lessons offered by each instructor (e.g., 30, 45, or 60 minutes).
     * As an admin, I want to be able to delete an instructor who is no longer with the stable.
+    * As an admin, I want to temporarily disable an instructor from being booked without deleting them.
 * **Acceptance Criteria:**
     * The system must allow for the creation of a new instructor with fields for first name, last name, email, phone number, and a notes section.
     * An availability matrix (days of the week and time ranges) must be configurable for each instructor.
     * The admin must be able to set a default lesson slot duration for each instructor.
-    * A list of all instructors must be viewable, with options to edit or delete each entry.
+    * A list of all instructors must be viewable, with options to edit, deactivate, or delete each entry.
+    * Each instructor record must include an active/inactive flag that controls booking availability.
 
 ### 3.2. Horse Management
 
@@ -94,9 +96,10 @@ The EquiScheduler is a comprehensive and user-friendly platform designed to stre
 * **Description:** This feature allows the admin to manage student records for riders like Alex.
 * **User Stories:**
     * As an admin, I want to create and update student contact information.
+    * As an admin, I want to record each student's preferred riding instructor.
     * As an admin, I want to delete student profiles when they are no longer active.
 * **Acceptance Criteria:**
-    * The system must support a student profile with first name, last name, email, and phone number.
+    * The system must support a student profile with first name, last name, email, phone number, and a preferred instructor.
     * A list of all students must be viewable with edit and delete options.
 
 **4. User Features**
