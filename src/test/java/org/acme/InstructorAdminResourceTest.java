@@ -1,10 +1,6 @@
 package org.acme;
 
-import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
-import jakarta.inject.Inject;
-import org.acme.domain.Instructor;
-import org.acme.repository.InstructorRepository;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -13,8 +9,6 @@ import static org.hamcrest.Matchers.containsString;
 @QuarkusTest
 class InstructorAdminResourceTest {
 
-    @Inject
-    InstructorRepository repository;
 
     @Test
     void testListProtected() {
@@ -25,12 +19,14 @@ class InstructorAdminResourceTest {
     }
 
     @Test
-    @TestTransaction
     void testListWithAuth() {
-        Instructor ins = new Instructor();
-        ins.firstName = "Mary";
-        ins.lastName = "Poppins";
-        repository.persist(ins);
+        given()
+          .auth().preemptive().basic("admin", "secret")
+          .formParam("firstName", "Mary")
+          .formParam("lastName", "Poppins")
+          .when().post("/admin/instructors")
+          .then()
+             .statusCode(200);
 
         given()
           .auth().preemptive().basic("admin", "secret")
