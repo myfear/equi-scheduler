@@ -7,6 +7,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.transaction.Transactional;
 import org.acme.domain.Instructor;
 import org.acme.repository.InstructorRepository;
 
@@ -36,6 +37,7 @@ public class InstructorAdminResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Transactional
     public TemplateInstance create(@FormParam("firstName") String firstName,
                                    @FormParam("lastName") String lastName,
                                    @FormParam("email") String email,
@@ -64,6 +66,7 @@ public class InstructorAdminResource {
     @POST
     @Path("{id}/edit")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Transactional
     public TemplateInstance update(@PathParam("id") Long id,
                                    @FormParam("firstName") String firstName,
                                    @FormParam("lastName") String lastName,
@@ -87,6 +90,7 @@ public class InstructorAdminResource {
 
     @POST
     @Path("{id}/toggle")
+    @Transactional
     public TemplateInstance toggle(@PathParam("id") Long id) {
         Instructor instructor = repository.findById(id);
         instructor.active = !instructor.active;
