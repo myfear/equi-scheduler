@@ -1,0 +1,1 @@
+insert into Admin(password, username, role) values ('$2a$10$Uc.SZ0hvGJQlYdsAp7be1.lFjmOnc7aAr4L0YY3/VN3oK.F8zJHRG', 'admin', 'admin');

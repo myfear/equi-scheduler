@@ -10,7 +10,7 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-
+    public String role;
     public String username;
     public String password;
 }
