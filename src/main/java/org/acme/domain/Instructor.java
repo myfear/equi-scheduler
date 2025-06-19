@@ -21,6 +21,9 @@ public class Instructor {
     public String email;
     public String phone;
 
+    public String username;
+    public String password;
+
     @ElementCollection
     public Set<Integer> slotDurations;
 

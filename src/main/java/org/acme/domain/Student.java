@@ -21,6 +21,9 @@ public class Student {
     public String email;
     public String phone;
 
+    public String username;
+    public String password;
+
     /**
      * Optional preferred instructor for this student.
      */

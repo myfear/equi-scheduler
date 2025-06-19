@@ -15,6 +15,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.acme.domain.Student;
 import org.acme.repository.StudentRepository;
+import io.quarkus.elytron.security.common.BcryptUtil;
 
 import java.util.List;
 
@@ -42,12 +43,16 @@ public class StudentAdminResource {
     public TemplateInstance create(@FormParam("firstName") String firstName,
                                    @FormParam("lastName") String lastName,
                                    @FormParam("email") String email,
-                                   @FormParam("phone") String phone) {
+                                   @FormParam("phone") String phone,
+                                   @FormParam("username") String username,
+                                   @FormParam("password") String password) {
         Student student = new Student();
         student.firstName = firstName;
         student.lastName = lastName;
         student.email = email;
         student.phone = phone;
+        student.username = username;
+        student.password = BcryptUtil.bcryptHash(password);
         repository.persist(student);
         return list();
     }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<main>
+    <h1>Edit Profile</h1>
+    <form action="/student/profile" method="post">
+        <input type="text" name="firstName" value="{student.firstName}" required>
+        <input type="text" name="lastName" value="{student.lastName}" required>
+        <input type="email" name="email" value="{student.email}">
+        <input type="text" name="phone" value="{student.phone}">
+        <input type="password" name="password" placeholder="New password">
+        <button type="submit">Save</button>
+    </form>
+</main>
+</body>
+</html>
