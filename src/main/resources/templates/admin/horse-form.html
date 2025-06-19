@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Horse</title>
+</head>
+<body>
+<div id="navigation">
+    {#include admin/navigation}{/include}
+</div>
+<main>
+    <h1>Edit Horse</h1>
+    <form action="/admin/horses/{horse.id}/edit" method="post">
+        <input type="text" name="name" value="{horse.name}" required>
+        <input type="text" name="breed" value="{horse.breed}">
+        <input type="number" name="age" value="{horse.age}">
+        <textarea name="notes">{horse.notes}</textarea>
+        <input type="number" name="maxDailyHours" value="{horse.maxDailyHours}">
+        <button type="submit">Save</button>
+    </form>
+</main>
+</body>
+</html>

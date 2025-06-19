@@ -21,13 +21,14 @@ class StudentAdminResourceTest {
     @BeforeEach
     @Transactional
     void setUp() {
-        if (adminRepository.count() == 0) {
-            Admin admin = new Admin();
+        Admin admin = adminRepository.find("username", "admin").firstResult();
+        if (admin == null) {
+            admin = new Admin();
             admin.username = "admin";
-            admin.password = BcryptUtil.bcryptHash("secret");
-            adminRepository.persist(admin);
-            adminRepository.flush();
         }
+        admin.password = BcryptUtil.bcryptHash("secret");
+        adminRepository.persist(admin);
+        adminRepository.flush();
     }
 
     @Test
