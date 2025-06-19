@@ -4,6 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+/**
+ * Student entity representing a rider.
+ */
 
 @Entity
 public class Student {
@@ -15,4 +20,10 @@ public class Student {
     public String lastName;
     public String email;
     public String phone;
+
+    /**
+     * Optional preferred instructor for this student.
+     */
+    @ManyToOne
+    public Instructor preferedInstructor;
 }

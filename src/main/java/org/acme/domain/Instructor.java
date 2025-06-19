@@ -16,4 +16,14 @@ public class Instructor {
     public String email;
     public String phone;
     public Integer defaultSlotDuration;
+
+    /**
+     * Text description of the instructor's general availability.
+     */
+    public String availability;
+
+    /**
+     * Flag indicating if this instructor can currently be booked.
+     */
+    public boolean active = true;
 }
