@@ -1,6 +1,12 @@
 package org.acme;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.elytron.security.common.BcryptUtil;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import org.acme.domain.Student;
+import org.acme.repository.StudentRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -8,6 +14,21 @@ import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
 class StudentResourceTest {
+
+    @Inject
+    StudentRepository studentRepository;
+
+    @BeforeEach
+    @Transactional
+    void setUp() {
+        if (studentRepository.find("username", "student").firstResult() == null) {
+            Student student = new Student();
+            student.username = "student";
+            student.password = BcryptUtil.bcryptHash("generated");
+            studentRepository.persist(student);
+            studentRepository.flush();
+        }
+    }
 
     @Test
     void testStudentEndpointProtected() {

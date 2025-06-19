@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.transaction.Transactional;
+import io.quarkus.elytron.security.common.BcryptUtil;
 import org.acme.domain.Instructor;
 import org.acme.repository.InstructorRepository;
 
@@ -45,6 +46,8 @@ public class InstructorAdminResource {
                                    @FormParam("lastName") String lastName,
                                    @FormParam("email") String email,
                                    @FormParam("phone") String phone,
+                                   @FormParam("username") String username,
+                                   @FormParam("password") String password,
                                    @FormParam("availability") List<String> availability,
                                    @FormParam("slotDurations") List<String> slotDurations) {
         Instructor instructor = new Instructor();
@@ -52,6 +55,8 @@ public class InstructorAdminResource {
         instructor.lastName = lastName;
         instructor.email = email;
         instructor.phone = phone;
+        instructor.username = username;
+        instructor.password = BcryptUtil.bcryptHash(password);
         instructor.availability = availability.stream()
                 .map(String::toUpperCase)
                 .map(DayOfWeek::valueOf)
