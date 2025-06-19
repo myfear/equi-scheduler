@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Students</title>
+</head>
+<body>
+<div id="navigation">
+    {#include admin/navigation}{/include}
+</div>
+<main>
+    <h1>Students</h1>
+    <h2>Add Student</h2>
+    <form action="/admin/students" method="post">
+        <input type="text" name="firstName" placeholder="First name" required>
+        <input type="text" name="lastName" placeholder="Last name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="phone" placeholder="Phone">
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Existing Students</h2>
+    <ul>
+        {#for s in students}
+        <li>{s.firstName} {s.lastName}</li>
+        {/for}
+    </ul>
+</main>
+</body>
+</html>
