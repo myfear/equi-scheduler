@@ -1,7 +1,7 @@
 package org.acme;
 
-import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.elytron.security.common.BcryptUtil;
+import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.acme.domain.Admin;
@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
-class AdminResourceTest {
+class HorseAdminResourceTest {
 
     @Inject
     AdminRepository adminRepository;
@@ -32,20 +32,28 @@ class AdminResourceTest {
     }
 
     @Test
-    void testAdminEndpointProtected() {
+    void testListProtected() {
         given()
-          .when().get("/admin")
+          .when().get("/admin/horses")
           .then()
              .statusCode(401);
     }
 
     @Test
-    void testAdminEndpointWithAuth() {
+    void testCreateAndListWithAuth() {
         given()
           .auth().preemptive().basic("admin", "secret")
-          .when().get("/admin")
+          .formParam("name", "Bella")
+          .formParam("breed", "Quarter")
+          .when().post("/admin/horses")
+          .then()
+             .statusCode(200);
+
+        given()
+          .auth().preemptive().basic("admin", "secret")
+          .when().get("/admin/horses")
           .then()
              .statusCode(200)
-             .body(containsString("Welcome to the EquiScheduler Admin Interface"));
+             .body(containsString("Bella"));
     }
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Horses</title>
+</head>
+<body>
+<div id="navigation">
+    {#include admin/navigation}{/include}
+</div>
+<main>
+    <h1>Horses</h1>
+    <h2>Add Horse</h2>
+    <form action="/admin/horses" method="post">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="breed" placeholder="Breed">
+        <input type="number" name="age" placeholder="Age">
+        <textarea name="notes" placeholder="Notes"></textarea>
+        <input type="number" name="maxDailyHours" placeholder="Max daily hours">
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Existing Horses</h2>
+    <table>
+        <thead>
+        <tr><th>Name</th><th>Breed</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        {#for h in horses}
+        <tr>
+            <td>{h.name}</td>
+            <td>{h.breed}</td>
+            <td>
+                <form action="/admin/horses/{h.id}/edit" method="get" style="display:inline">
+                    <button type="submit">Edit</button>
+                </form>
+                <form action="/admin/horses/{h.id}/delete" method="post" style="display:inline">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {/for}
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
