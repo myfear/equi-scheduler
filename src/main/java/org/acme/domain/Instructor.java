@@ -4,6 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import java.time.DayOfWeek;
+import java.util.Set;
 
 @Entity
 public class Instructor {
@@ -15,12 +20,16 @@ public class Instructor {
     public String lastName;
     public String email;
     public String phone;
-    public Integer defaultSlotDuration;
+
+    @ElementCollection
+    public Set<Integer> slotDurations;
 
     /**
-     * Text description of the instructor's general availability.
+     * Days of the week the instructor is generally available.
      */
-    public String availability;
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    public Set<DayOfWeek> availability;
 
     /**
      * Flag indicating if this instructor can currently be booked.

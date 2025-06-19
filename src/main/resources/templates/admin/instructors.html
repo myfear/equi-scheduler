@@ -16,8 +16,23 @@
         <input type="text" name="lastName" placeholder="Last name" required>
         <input type="email" name="email" placeholder="Email">
         <input type="text" name="phone" placeholder="Phone">
-        <input type="text" name="availability" placeholder="Availability">
-        <input type="number" name="defaultSlotDuration" placeholder="Slot duration">
+        <div>
+            <span>Availability:</span>
+            <label><input type="checkbox" name="availability" value="MONDAY">Mon</label>
+            <label><input type="checkbox" name="availability" value="TUESDAY">Tue</label>
+            <label><input type="checkbox" name="availability" value="WEDNESDAY">Wed</label>
+            <label><input type="checkbox" name="availability" value="THURSDAY">Thu</label>
+            <label><input type="checkbox" name="availability" value="FRIDAY">Fri</label>
+            <label><input type="checkbox" name="availability" value="SATURDAY">Sat</label>
+            <label><input type="checkbox" name="availability" value="SUNDAY">Sun</label>
+        </div>
+        <div>
+            <span>Slot Durations:</span>
+            <label><input type="checkbox" name="slotDurations" value="30">30</label>
+            <label><input type="checkbox" name="slotDurations" value="60">60</label>
+            <label><input type="checkbox" name="slotDurations" value="90">90</label>
+            <label><input type="checkbox" name="slotDurations" value="120">120</label>
+        </div>
         <button type="submit">Add</button>
     </form>
 
