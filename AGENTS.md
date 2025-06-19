@@ -35,3 +35,7 @@ Tests can be run with
   - **Why?**
   - **Breaking changes?**
 - Comments should be complete sentences and end with a period.
+
+## Context
+Product Requirements Document: `PRD.md` in the repository root. 
+The EquiScheduler is a comprehensive and user-friendly platform designed to streamline the scheduling and management of a riding school.
