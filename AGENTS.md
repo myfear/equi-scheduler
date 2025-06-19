@@ -14,12 +14,12 @@ This Agents.md file provides comprehensive guidance for OpenAI Codex and other A
 
 The project can be compiled with 
 ```shell script
-./mvnw compile 
+mvn compile 
 ```
 
 Tests can be run with
 ```shell script
-./mvnw verify 
+mvn verify 
 ```
 
 ## Tests
