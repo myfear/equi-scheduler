@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Instructor</title>
+</head>
+<body>
+<div id="navigation">
+    {#include admin/navigation}{/include}
+</div>
+<main>
+    <h1>Edit Instructor</h1>
+    <form action="/admin/instructors/{instructor.id}/edit" method="post">
+        <input type="text" name="firstName" value="{instructor.firstName}" required>
+        <input type="text" name="lastName" value="{instructor.lastName}" required>
+        <input type="email" name="email" value="{instructor.email}">
+        <input type="text" name="phone" value="{instructor.phone}">
+        <input type="text" name="availability" value="{instructor.availability}">
+        <input type="number" name="defaultSlotDuration" value="{instructor.defaultSlotDuration}">
+        <label>
+            Active <input type="checkbox" name="active" value="true" {#if instructor.active}checked{/if}>
+        </label>
+        <button type="submit">Save</button>
+    </form>
+</main>
+</body>
+</html>

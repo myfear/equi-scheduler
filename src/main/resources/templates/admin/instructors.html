@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Instructors</title>
+</head>
+<body>
+<div id="navigation">
+    {#include admin/navigation}{/include}
+</div>
+<main>
+    <h1>Instructors</h1>
+    <h2>Add Instructor</h2>
+    <form action="/admin/instructors" method="post">
+        <input type="text" name="firstName" placeholder="First name" required>
+        <input type="text" name="lastName" placeholder="Last name" required>
+        <input type="email" name="email" placeholder="Email">
+        <input type="text" name="phone" placeholder="Phone">
+        <input type="text" name="availability" placeholder="Availability">
+        <input type="number" name="defaultSlotDuration" placeholder="Slot duration">
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Existing Instructors</h2>
+    <table>
+        <thead>
+        <tr><th>Name</th><th>Active</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        {#for i in instructors}
+        <tr>
+            <td>{i.firstName} {i.lastName}</td>
+            <td>{i.active ? 'Yes' : 'No'}</td>
+            <td>
+                <form action="/admin/instructors/{i.id}/edit" method="get" style="display:inline">
+                    <button type="submit">Edit</button>
+                </form>
+                <form action="/admin/instructors/{i.id}/toggle" method="post" style="display:inline">
+                    <button type="submit">{i.active ? 'Disable' : 'Enable'}</button>
+                </form>
+            </td>
+        </tr>
+        {/for}
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
