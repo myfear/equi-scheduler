@@ -11,7 +11,10 @@ import jakarta.transaction.Transactional;
 import org.acme.domain.Instructor;
 import org.acme.repository.InstructorRepository;
 
+import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Path("/admin/instructors")
 @RolesAllowed("admin")
@@ -42,15 +45,20 @@ public class InstructorAdminResource {
                                    @FormParam("lastName") String lastName,
                                    @FormParam("email") String email,
                                    @FormParam("phone") String phone,
-                                   @FormParam("availability") String availability,
-                                   @FormParam("defaultSlotDuration") Integer defaultSlotDuration) {
+                                   @FormParam("availability") List<String> availability,
+                                   @FormParam("slotDurations") List<String> slotDurations) {
         Instructor instructor = new Instructor();
         instructor.firstName = firstName;
         instructor.lastName = lastName;
         instructor.email = email;
         instructor.phone = phone;
-        instructor.availability = availability;
-        instructor.defaultSlotDuration = defaultSlotDuration;
+        instructor.availability = availability.stream()
+                .map(String::toUpperCase)
+                .map(DayOfWeek::valueOf)
+                .collect(Collectors.toSet());
+        instructor.slotDurations = slotDurations.stream()
+                .map(Integer::valueOf)
+                .collect(Collectors.toSet());
         repository.persist(instructor);
         return list();
     }
@@ -72,16 +80,21 @@ public class InstructorAdminResource {
                                    @FormParam("lastName") String lastName,
                                    @FormParam("email") String email,
                                    @FormParam("phone") String phone,
-                                   @FormParam("availability") String availability,
-                                   @FormParam("defaultSlotDuration") Integer defaultSlotDuration,
+                                   @FormParam("availability") List<String> availability,
+                                   @FormParam("slotDurations") List<String> slotDurations,
                                    @FormParam("active") boolean active) {
         Instructor instructor = repository.findById(id);
         instructor.firstName = firstName;
         instructor.lastName = lastName;
         instructor.email = email;
         instructor.phone = phone;
-        instructor.availability = availability;
-        instructor.defaultSlotDuration = defaultSlotDuration;
+        instructor.availability = availability.stream()
+                .map(String::toUpperCase)
+                .map(DayOfWeek::valueOf)
+                .collect(Collectors.toSet());
+        instructor.slotDurations = slotDurations.stream()
+                .map(Integer::valueOf)
+                .collect(Collectors.toSet());
         instructor.active = active;
         repository.persist(instructor);
         repository.flush();

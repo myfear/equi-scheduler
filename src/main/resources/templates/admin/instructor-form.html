@@ -15,8 +15,23 @@
         <input type="text" name="lastName" value="{instructor.lastName}" required>
         <input type="email" name="email" value="{instructor.email}">
         <input type="text" name="phone" value="{instructor.phone}">
-        <input type="text" name="availability" value="{instructor.availability}">
-        <input type="number" name="defaultSlotDuration" value="{instructor.defaultSlotDuration}">
+        <div>
+            <span>Availability:</span>
+            <label><input type="checkbox" name="availability" value="MONDAY" {#if instructor.availability.contains('MONDAY')}checked{/if}>Mon</label>
+            <label><input type="checkbox" name="availability" value="TUESDAY" {#if instructor.availability.contains('TUESDAY')}checked{/if}>Tue</label>
+            <label><input type="checkbox" name="availability" value="WEDNESDAY" {#if instructor.availability.contains('WEDNESDAY')}checked{/if}>Wed</label>
+            <label><input type="checkbox" name="availability" value="THURSDAY" {#if instructor.availability.contains('THURSDAY')}checked{/if}>Thu</label>
+            <label><input type="checkbox" name="availability" value="FRIDAY" {#if instructor.availability.contains('FRIDAY')}checked{/if}>Fri</label>
+            <label><input type="checkbox" name="availability" value="SATURDAY" {#if instructor.availability.contains('SATURDAY')}checked{/if}>Sat</label>
+            <label><input type="checkbox" name="availability" value="SUNDAY" {#if instructor.availability.contains('SUNDAY')}checked{/if}>Sun</label>
+        </div>
+        <div>
+            <span>Slot Durations:</span>
+            <label><input type="checkbox" name="slotDurations" value="30" {#if instructor.slotDurations.contains(30)}checked{/if}>30</label>
+            <label><input type="checkbox" name="slotDurations" value="60" {#if instructor.slotDurations.contains(60)}checked{/if}>60</label>
+            <label><input type="checkbox" name="slotDurations" value="90" {#if instructor.slotDurations.contains(90)}checked{/if}>90</label>
+            <label><input type="checkbox" name="slotDurations" value="120" {#if instructor.slotDurations.contains(120)}checked{/if}>120</label>
+        </div>
         <label>
             Active <input type="checkbox" name="active" value="true" {#if instructor.active}checked{/if}>
         </label>
