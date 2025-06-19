@@ -89,6 +89,16 @@ The EquiScheduler is a comprehensive and user-friendly platform designed to stre
     * There must be a mechanism to assign a "teacher" role to a user.
     * Admins must have the ability to view a list of all users and delete them.
 
+### 3.5. Student Management
+
+* **Description:** This feature allows the admin to manage student records for riders like Alex.
+* **User Stories:**
+    * As an admin, I want to create and update student contact information.
+    * As an admin, I want to delete student profiles when they are no longer active.
+* **Acceptance Criteria:**
+    * The system must support a student profile with first name, last name, email, and phone number.
+    * A list of all students must be viewable with edit and delete options.
+
 **4. User Features**
 
 ### 4.1. Calendar Viewing
