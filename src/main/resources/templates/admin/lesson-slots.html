@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Schedule</title>
+</head>
+<body>
+<div id="navigation">
+    {#include admin/navigation}{/include}
+</div>
+<main>
+    <h1>Schedule</h1>
+    <h2>Add Lesson Slot</h2>
+    <form action="/admin/lesson-slots" method="post">
+        <input type="datetime-local" name="startTime" required>
+        <input type="datetime-local" name="endTime" required>
+        <select name="instructorId">
+            {#for i in instructors}
+            <option value="{i.id}">{i.firstName} {i.lastName}</option>
+            {/for}
+        </select>
+        <select name="horseId">
+            <option value="">None</option>
+            {#for h in horses}
+            <option value="{h.id}">{h.name}</option>
+            {/for}
+        </select>
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Existing Slots</h2>
+    <table>
+        <thead>
+        <tr><th>Start</th><th>End</th><th>Instructor</th><th>Horse</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        {#for s in slots}
+        <tr>
+            <td>{s.startTime}</td>
+            <td>{s.endTime}</td>
+            <td>{s.instructor.firstName}</td>
+            <td>{s.horse != null ? s.horse.name : ''}</td>
+            <td>
+                <form action="/admin/lesson-slots/{s.id}/delete" method="post" style="display:inline">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {/for}
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

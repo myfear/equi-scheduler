@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Available Slots</title>
+</head>
+<body>
+<main>
+    <h1>Available Lesson Slots</h1>
+    <ul>
+        {#for s in slots}
+        <li>{s.startTime} - {s.endTime} with {s.instructor.firstName}{#if s.horse} riding {s.horse.name}{/if}</li>
+        {/for}
+    </ul>
+</main>
+</body>
+</html>
