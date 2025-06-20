@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 /**
  * Student entity representing a rider.
@@ -21,8 +22,8 @@ public class Student {
     public String email;
     public String phone;
 
-    public String username;
-    public String password;
+    @OneToOne(cascade = jakarta.persistence.CascadeType.ALL)
+    public Access access;
 
     /**
      * Optional preferred instructor for this student.

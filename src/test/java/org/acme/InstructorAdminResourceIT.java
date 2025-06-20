@@ -1,7 +1,6 @@
 package org.acme;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import org.acme.CustomH2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest

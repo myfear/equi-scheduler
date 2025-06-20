@@ -16,6 +16,8 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.POST;
 import io.quarkus.elytron.security.common.BcryptUtil;
+
+import org.acme.domain.Access;
 import org.acme.domain.Student;
 import org.acme.repository.StudentRepository;
 
@@ -66,7 +68,9 @@ public class StudentResource {
         student.email = email;
         student.phone = phone;
         if (password != null && !password.isEmpty()) {
-            student.password = BcryptUtil.bcryptHash(password);
+            Access access = student.access;
+            access.password = BcryptUtil.bcryptHash(password);
+        student.access= access;
         }
         repository.persist(student);
         repository.flush();

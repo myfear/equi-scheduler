@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Admin {
@@ -11,6 +12,7 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     public String role;
-    public String username;
-    public String password;
+   
+    @OneToOne(cascade = jakarta.persistence.CascadeType.ALL)
+    public Access access;
 }

@@ -20,6 +20,7 @@ public class CustomH2DatabaseTestResource implements QuarkusTestResourceLifecycl
         props.put("quarkus.datasource.jdbc.url", "jdbc:h2:tcp://localhost/mem:test");
         props.put("quarkus.datasource.db-kind", "h2");
         props.put("quarkus.hibernate-orm.database.generation", "drop-and-create");
+        props.put("quarkus.hibernate-orm.sql-load-script", "import.sql"); 
         return props;
     }
 

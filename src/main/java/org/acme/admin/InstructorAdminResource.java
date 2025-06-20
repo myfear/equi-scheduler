@@ -9,6 +9,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.transaction.Transactional;
 import io.quarkus.elytron.security.common.BcryptUtil;
+
+import org.acme.domain.Access;
 import org.acme.domain.Instructor;
 import org.acme.repository.InstructorRepository;
 
@@ -55,8 +57,10 @@ public class InstructorAdminResource {
         instructor.lastName = lastName;
         instructor.email = email;
         instructor.phone = phone;
-        instructor.username = username;
-        instructor.password = BcryptUtil.bcryptHash(password);
+        Access instructorAccess = new Access();
+        instructorAccess.username = username;
+        instructorAccess.password = BcryptUtil.bcryptHash(password);
+        instructor.access = instructorAccess;
         instructor.availability = availability.stream()
                 .map(String::toUpperCase)
                 .map(DayOfWeek::valueOf)

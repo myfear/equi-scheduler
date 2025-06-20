@@ -4,6 +4,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+
+import org.acme.domain.Access;
 import org.acme.domain.Student;
 import org.acme.repository.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,17 +20,6 @@ class StudentResourceTest {
     @Inject
     StudentRepository studentRepository;
 
-    @BeforeEach
-    @Transactional
-    void setUp() {
-        if (studentRepository.find("username", "student").firstResult() == null) {
-            Student student = new Student();
-            student.username = "student";
-            student.password = BcryptUtil.bcryptHash("generated");
-            studentRepository.persist(student);
-            studentRepository.flush();
-        }
-    }
 
     @Test
     void testStudentEndpointProtected() {
@@ -41,7 +32,7 @@ class StudentResourceTest {
     @Test
     void testStudentEndpointWithAuth() {
         given()
-          .auth().preemptive().basic("student", "generated")
+          .auth().preemptive().basic("student", "password")
           .when().get("/student")
           .then()
              .statusCode(200)

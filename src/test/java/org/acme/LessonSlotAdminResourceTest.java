@@ -4,6 +4,8 @@ import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+
+import org.acme.domain.Access;
 import org.acme.domain.Admin;
 import org.acme.domain.Horse;
 import org.acme.domain.Instructor;
@@ -19,8 +21,7 @@ import static org.hamcrest.Matchers.containsString;
 @QuarkusTest
 class LessonSlotAdminResourceTest {
 
-    @Inject
-    AdminRepository adminRepository;
+
 
     @Inject
     InstructorRepository instructorRepository;
@@ -34,13 +35,7 @@ class LessonSlotAdminResourceTest {
     @BeforeEach
     @Transactional
     void setUp() {
-        Admin admin = adminRepository.find("username", "admin").firstResult();
-        if (admin == null) {
-            admin = new Admin();
-            admin.username = "admin";
-        }
-        admin.password = BcryptUtil.bcryptHash("secret");
-        adminRepository.persist(admin);
+
 
         Instructor ins = new Instructor();
         ins.firstName = "Tina";
@@ -52,7 +47,6 @@ class LessonSlotAdminResourceTest {
         horseRepository.persist(horse);
         horseId = horse.id;
 
-        adminRepository.flush();
         instructorRepository.flush();
         horseRepository.flush();
     }
@@ -68,7 +62,7 @@ class LessonSlotAdminResourceTest {
     @Test
     void testCreateAndListWithAuth() {
         given()
-          .auth().preemptive().basic("admin", "secret")
+          .auth().preemptive().basic("admin", "password")
           .formParam("startTime", "2024-01-01T10:00")
           .formParam("endTime", "2024-01-01T11:00")
           .formParam("instructorId", instructorId)
@@ -78,7 +72,7 @@ class LessonSlotAdminResourceTest {
              .statusCode(200);
 
         given()
-          .auth().preemptive().basic("admin", "secret")
+          .auth().preemptive().basic("admin", "password")
           .when().get("/admin/lesson-slots")
           .then()
              .statusCode(200)

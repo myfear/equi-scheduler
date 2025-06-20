@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,8 +22,8 @@ public class Instructor {
     public String email;
     public String phone;
 
-    public String username;
-    public String password;
+    @OneToOne(cascade = jakarta.persistence.CascadeType.ALL)
+    public Access access;
 
     @ElementCollection
     public Set<Integer> slotDurations;

@@ -1,3 +1,3 @@
 insert into Access(password, username, role) values ('$2a$10$Uc.SZ0hvGJQlYdsAp7be1.lFjmOnc7aAr4L0YY3/VN3oK.F8zJHRG', 'admin', 'admin');
 insert into Access(password, username, role) values ('$2a$10$Uc.SZ0hvGJQlYdsAp7be1.lFjmOnc7aAr4L0YY3/VN3oK.F8zJHRG', 'student', 'student');
-insert into Access(password, username, role) values ('$2a$10$Uc.SZ0hvGJQlYdsAp7be1.lFjmOnc7aAr4L0YY3/VN3oK.F8zJHRG', 'instructor', 'student');
+insert into Access(password, username, role) values ('$2a$10$Uc.SZ0hvGJQlYdsAp7be1.lFjmOnc7aAr4L0YY3/VN3oK.F8zJHRG', 'instructor', 'instructor');

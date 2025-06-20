@@ -13,6 +13,8 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+
+import org.acme.domain.Access;
 import org.acme.domain.Student;
 import org.acme.repository.StudentRepository;
 import io.quarkus.elytron.security.common.BcryptUtil;
@@ -51,8 +53,10 @@ public class StudentAdminResource {
         student.lastName = lastName;
         student.email = email;
         student.phone = phone;
-        student.username = username;
-        student.password = BcryptUtil.bcryptHash(password);
+        Access studentAccess = new Access();
+        studentAccess.username = username;
+        studentAccess.password = BcryptUtil.bcryptHash(password);
+        student.access = studentAccess;
         repository.persist(student);
         return list();
     }
