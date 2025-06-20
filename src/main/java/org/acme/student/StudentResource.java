@@ -15,11 +15,16 @@ import jakarta.ws.rs.core.SecurityContext;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.QueryParam;
 import io.quarkus.elytron.security.common.BcryptUtil;
 
 import org.acme.domain.Access;
 import org.acme.domain.Student;
+import org.acme.domain.Instructor;
+import org.acme.domain.LessonSlot;
 import org.acme.repository.StudentRepository;
+import org.acme.repository.InstructorRepository;
+import org.acme.repository.LessonSlotRepository;
 
 @Path("/student")
 public class StudentResource {
@@ -33,7 +38,17 @@ public class StudentResource {
     Template profile;
 
     @Inject
+    @Location("student/calendar")
+    Template calendar;
+
+    @Inject
     StudentRepository repository;
+
+    @Inject
+    InstructorRepository instructorRepository;
+
+    @Inject
+    LessonSlotRepository lessonSlotRepository;
 
     @GET
     @Produces(MediaType.TEXT_HTML)
@@ -75,5 +90,18 @@ public class StudentResource {
         repository.persist(student);
         repository.flush();
         return profile.data("student", student);
+    }
+
+    @GET
+    @Path("/calendar")
+    @Produces(MediaType.TEXT_HTML)
+    @RolesAllowed("student")
+    public TemplateInstance calendar(@QueryParam("instructorId") Long instructorId) {
+        var instructors = instructorRepository.listAll();
+        var slots = instructorId == null ? java.util.Collections.<LessonSlot>emptyList() :
+                lessonSlotRepository.findByInstructorId(instructorId);
+        return calendar.data("instructors", instructors)
+                      .data("slots", slots)
+                      .data("selectedInstructorId", instructorId);
     }
 }

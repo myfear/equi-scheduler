@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson Calendar</title>
+</head>
+<body>
+<main>
+    <h1>Lesson Calendar</h1>
+    <form method="get" action="/student/calendar">
+        <select name="instructorId" onchange="this.form.submit()">
+            <option value="">Select instructor</option>
+            {#for i in instructors}
+            <option value="{i.id}" {selectedInstructorId == i.id ? 'selected' : ''}>{i.firstName} {i.lastName}</option>
+            {/for}
+        </select>
+    </form>
+    {#if slots.size > 0}
+    <ul>
+        {#for s in slots}
+        <li>{s.startTime} - {s.endTime}</li>
+        {/for}
+    </ul>
+    {/if}
+</main>
+</body>
+</html>
